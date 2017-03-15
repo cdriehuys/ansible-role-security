@@ -1,2 +1,6 @@
 ---
-# tasks file for security
+- name: Create deployment user
+  user:
+    name: "{{ deploy_user }}"
+    shell: "{{ deploy_user_shell }}"
+    state: present
