@@ -3,6 +3,13 @@ Security
 
 Ansible role to perform the "first 5 minute tasks" done on every server.
 
+Tasks:
+
+- Create deployment user
+  
+  - Has no password and can only be accessed through SSH.
+  - User is added to sudoers.
+
 Requirements
 ------------
 
