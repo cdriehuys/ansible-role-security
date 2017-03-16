@@ -57,3 +57,9 @@
     owner: root
     group: root
     validate: "/usr/sbin/visudo -cf %s"
+
+- name: Create required groups for deployment
+  group:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ deploy_groups }}"
