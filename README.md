@@ -28,8 +28,8 @@ deploy_user_shell: '/bin/bash'
 
 # The SSH keys to assign to the deploy user. This is required as the deployment
 # user has no password, so this is the only way to login.
-deploy_user_public_keys:
-  - ~/.ssh/id_rsa.pub
+deploy_user_public_keys: []             # Raw SSH keys
+deploy_user_public_key_files: []        # Include keys using files, eg: ~/.ssh/id_rsa.pub
 ```
 
 Example Playbook

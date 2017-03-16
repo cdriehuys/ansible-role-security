@@ -2,6 +2,6 @@
 apt_cache_time: 0
 
 deploy_user: deploy
-deploy_user_public_keys:
-  - ~/.ssh/id_rsa.pub
+deploy_user_public_keys: []
+deploy_user_public_key_files: []
 deploy_user_shell: '/bin/bash'
