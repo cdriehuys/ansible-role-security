@@ -5,6 +5,7 @@ Ansible role to perform the "first 5 minute tasks" done on every server.
 
 Tasks:
 
+- Perform a safe upgrade of all packages
 - Create deployment user
   - Has no password and can only be accessed through SSH.
   - User is added to sudoers.
@@ -20,6 +21,8 @@ Role Variables
 Listed below are all the configuration options for the role along with their defaults.
 
 ```YAML
+apt_cache_time: 0
+
 deploy_user: 'deploy'
 deploy_user_shell: '/bin/bash'
 

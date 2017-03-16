@@ -1,4 +1,9 @@
 ---
+- name: Upgrade packages
+  apt:
+    upgrade: safe
+    cache_valid_time: "{{ apt_cache_time }}"
+
 - name: Create deployment user '{{ deploy_user }}'
   user:
     name: "{{ deploy_user }}"
