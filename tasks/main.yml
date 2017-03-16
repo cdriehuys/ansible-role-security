@@ -14,15 +14,13 @@
   authorized_key:
     user: "{{ deploy_user }}"
     key: "{{ item }}"
-  with_items:
-    - "{{ deploy_user_public_keys }}"
+  with_items: "{{ deploy_user_public_keys }}"
 
 - name: Add authorized keys for {{ deploy_user }} from files
   authorized_key:
     user: "{{ deploy_user }}"
     key: "{{ lookup('file', item) }}"
-  with_items:
-    - "{{ deploy_user_public_key_files }}"
+  with_items: "{{ deploy_user_public_key_files }}"
 
 - name: Add {{ deploy_user }} to sudoers
   lineinfile:
