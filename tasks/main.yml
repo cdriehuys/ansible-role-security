@@ -19,6 +19,8 @@
 - name: Create deployment user '{{ deploy_user }}'
   user:
     name: "{{ deploy_user }}"
+    group: "{{ deploy_user_primary_group }}"
+    groups: "{{ deploy_user_groups }}"
     shell: "{{ deploy_user_shell }}"
     state: present
 
