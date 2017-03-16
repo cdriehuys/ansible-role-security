@@ -24,6 +24,8 @@ Listed below are all the configuration options for the role along with their def
 apt_cache_time: 0
 
 deploy_user: 'deploy'
+deploy_user_primary_group: ''
+deploy_user_groups: []
 deploy_user_shell: '/bin/bash'
 
 # The SSH keys to assign to the deploy user. This is required as the deployment
