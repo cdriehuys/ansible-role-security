@@ -3,11 +3,13 @@
   apt:
     name: aptitude
     state: present
+    update_cache: yes
     cache_valid_time: "{{ apt_cache_time }}"
 
 - name: Upgrade packages
   apt:
     upgrade: safe
+    update_cache: yes
     cache_valid_time: "{{ apt_cache_time }}"
 
 - name: Create deployment user '{{ deploy_user }}'
