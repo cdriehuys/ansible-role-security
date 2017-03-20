@@ -1,30 +1,34 @@
 ---
-language: python
-python: "2.7"
+# Sudo is required for some docker commands
+sudo: required
 
-# Use the new container infrastructure
-sudo: false
+services:
+  - docker
 
-# Install ansible
-addons:
-  apt:
-    packages:
-    - python-pip
+# Run tests for each supported OS
+#
+# distro: Distro name corresponding to geerlingguy's docker images
+# init: The init system corresponding to the distro
+# run_opts: Additional arguments to pass when creating the docker container
+env:
+  - distro: ubuntu1604
+    init: /lib/systemd/systemd
+    run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
 
-install:
-  # Install ansible
-  - pip install ansible
+# Pull latest version of docker image
+before_install:
+  - 'docker pull geerlingguy/docker-${distro}-ansible:latest'
 
-  # Check ansible version
-  - ansible --version
-
-  # Create ansible.cfg with correct roles_path
-  - echo '[defaults]' > ansible.cfg
-  - echo 'roles_path = ../' >> ansible.cfg
-
+# Start docker container and run tests
 script:
-  # Basic role syntax check
-  - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
+  # Create random file to store container ID
+  - container_id=$(mktemp)
+
+  # Run container with role mounted inside
+  - >
+    docker run --detach --volume="${PWD}":/etc/ansible/roles/role_under_test:ro
+    ${run_opts} geerlingguy/docker-${distro}-ansible:latest
+    "${init}" > "${container_id}"
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
