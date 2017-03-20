@@ -3,6 +3,7 @@
   apt:
     name: aptitude
     state: present
+    cache_valid_time: "{{ apt_cache_time }}"
 
 - name: Upgrade packages
   apt:
