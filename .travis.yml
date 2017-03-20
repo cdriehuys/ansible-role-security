@@ -15,12 +15,11 @@ env:
     init: /lib/systemd/systemd
     run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
 
-# Pull latest version of docker image
+# Provision docker container
 before_install:
+  # Pull latest version of the docker image
   - 'docker pull geerlingguy/docker-${distro}-ansible:latest'
 
-# Start docker container and run tests
-script:
   # Create random file to store container ID
   - container_id=$(mktemp)
 
@@ -29,6 +28,13 @@ script:
     docker run --detach --volume="${PWD}":/etc/ansible/roles/role_under_test:ro
     ${run_opts} geerlingguy/docker-${distro}-ansible:latest
     "${init}" > "${container_id}"
+
+# Start docker container and run tests
+script:
+  # Test role syntax
+  - >
+    docker exec --tty "$(cat ${container_id})" env TERM=xterm
+    ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml --syntax-check
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
